@@ -22,7 +22,7 @@ public class BeerRepository implements BeerQueries {
 
 	// DO NOT CHANGE THE SIGNATURE OF THIS METHOD
 	public List<Style> getStyles() {
-		// TODO: Task 2
+		// Task 2
 		List<Style> beerStyles = new LinkedList<>();
 
         final SqlRowSet rs = jdbcTemplate.queryForRowSet(GET_STYLES_AND_BEERCOUNT);
@@ -40,10 +40,23 @@ public class BeerRepository implements BeerQueries {
 	}
 		
 	// DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
-	public List<Beer> getBreweriesByBeer(/* You can add any number parameters here */) {
+	public List<Beer> getBreweriesByBeer(int styleId) {
 		// TODO: Task 3
+		List<Beer> beers = new LinkedList<>();
 
-		return null;
+		final SqlRowSet rs = jdbcTemplate.queryForRowSet(GET_BREWERIES_BY_BEER, styleId);
+
+		while(rs.next()){
+            Beer b = new Beer();
+            b.setBeerId(rs.getInt("b_id"));
+            b.setBeerName(rs.getString("b_name"));
+            b.setBeerDescription(rs.getString("b_description"));
+            b.setBreweryId(rs.getInt("brewery_id"));
+			b.setBreweryName(rs.getString("brewery_name"));
+            beers.add(b);
+        }
+
+		return Collections.unmodifiableList(beers);
 	}
 
 	// DO NOT CHANGE THE METHOD'S NAME OR THE RETURN TYPE OF THIS METHOD
