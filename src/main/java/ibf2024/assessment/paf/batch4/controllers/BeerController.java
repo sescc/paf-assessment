@@ -29,11 +29,11 @@ public class BeerController {
 	private BeerService beerService;
 
 	//Task 2 - view 0
-	@GetMapping("/view0.html")
+	@GetMapping(path = {"/", "/view0", "/view0.html"})
 	public ModelAndView getStyleListing() {
 		List<Style> styles = beerService.getStyles();
 		
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("/view0.html");
 		mav.addObject("styles", styles);
 
 		return mav;
