@@ -12,23 +12,26 @@
     <div th:unless="${#lists.isEmpty(beers)}">
         <h1 th:text="${styleName}"></h1>
 
-        <p><a href="../../view0.html">Back</a></p>
-
         <table border="1">
+            <a href="../../view0.html">Back</a>
             <thead>
                 <tr>
-                    <th>Style</th>
-                    <th>Beer Count</th>
+                    <th>Beer Name</th>
+                    <th>Description</th>
+                    <th>Brewery Name</th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-th-each="b: ${beers}" data-th-object="${s}">
+                <tr th:each="b: ${beers}" th:object="${b}">
                     <td>
-                        <span data-th-text="*{name}"></span> 
+                        <span th:text="*{beerName}"></span> 
                     </td>
                     <td>
-                        <a data-th-href="@{/beer/style/{id}?styleName={styleName}(id=*{styleId}, styleName=*{name})}">
-                            <span data-th-text="*{beerCount}"></span>
+                        <span th:text="*{beerDescription}"></span> 
+                    </td>
+                    <td>
+                        <a th:href="@{/beer/brewery/{id}(id=*{breweryId})}">
+                            <span th:text="*{breweryName}"></span>
                         </a>
                     </td>
                 </tr>
