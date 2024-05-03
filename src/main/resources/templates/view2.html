@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beer Details</title>
+</head>
+<body>
+<!-- Debug -- <span th:text="${brewery}"></span> -->
+    <h1 th:unless="${brewery}">Brewery not found</h1>
+
+    <div th:if="${brewery}">
+        <h1 th:text="${brewery.name}"></h1>
+
+        <table>
+            <a href="../../view0.html">Back</a>
+                <tr>
+                    <td>Description:</td>
+                    <td th:text="${brewery.description}"></td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>
+                        <p th:text="${brewery.address1}"></p>
+                        <p th:text="${brewery.address2}"></p>
+                        <p th:text="${brewery.city}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td th:text="${brewery.phone}"></td>
+                </tr>
+                <tr>
+                    <td>Website:</td>
+                    <td>
+                        <a th:href="${brewery.website}"><span th:text="${brewery.website}"></span></a>
+                    </td>
+                </tr>
+        </table>
+
+        <form action="/order" method="POST" th:object="${brewery}">
+            <h3>Beers</h3>
+
+
+            <table border="1">
+                <button type="submit">Place Order</button>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b: ${brewery.beers}">
+                        <td>
+                            <span th:text="${b.beerName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${b.beerDescription}"></span> 
+                        </td>
+                        <td>
+                            <input type="number" name="qty" style="width: 50px; text-align: center;">
+                            <!-- //TODO// th:field="*{quantity}" -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </form>
+
+    </div>
+    
+</body>
+</html>
