@@ -7,7 +7,7 @@
 </head>
 <body>
 <!-- Debug -- <span th:text="${brewery}"></span> -->
-    <h1 th:unless="${brewery}">Brewery not found</h1>
+    <h1 th:if="${brewery}">Brewery not found</h1>
 
     <div th:if="${brewery}">
         <h1 th:text="${brewery.name}"></h1>
@@ -38,7 +38,7 @@
                 </tr>
         </table>
 
-        <form action="/order" method="POST" th:object="${brewery}">
+        <form th:action="@{/brewery/{id}/order(id=${brewery.breweryId})}" method="POST" th:object="${order}">
             <h3>Beers</h3>
 
 
@@ -60,8 +60,8 @@
                             <span th:text="${b.beerDescription}"></span> 
                         </td>
                         <td>
-                            <input type="number" name="qty" style="width: 50px; text-align: center;">
-                            <!-- //TODO// th:field="*{quantity}" -->
+                            <input type="number" name="qty" style="width: 50px; text-align: center;" th:field="*{quantity}">
+
                         </td>
                     </tr>
                 </tbody>
